@@ -1,0 +1,95 @@
+<include file="public:head" />
+
+    <div class="container">
+
+      <h3>供能比汇总 <small><a href="{:U('tools/index')}">返回</a></small></h3>
+      <p></p>
+<br><br><br>
+      <div class="row">
+      	
+      	<div class="col-xs-12">
+
+      		<div id="main" style="width: 100%;height:400px;"></div>
+
+        </div>
+
+      </div>
+
+    </div> <!-- /container -->
+
+
+<include file="public:foot" />
+<script type="text/javascript">
+var myChart1 = echarts.init(document.getElementById('main'));
+myChart1.setOption({
+    title: {
+        text: '供能比汇总'
+    },
+    tooltip : {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',
+            label: {
+                backgroundColor: '#6a7985'
+            }
+        }
+    },
+    legend: {
+        data:['蛋白供能比','脂肪供能比','碳水供能比']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : []
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            max: 1
+        }
+    ],
+    series : []
+});
+
+
+var xx = [];
+var yy = [];
+
+function getdata(){
+	$.ajax({
+        url:"{:U('tools/gnball_data')}",
+        async:false,
+        dataType:'json',
+        type:'post',
+        success:function(msg){
+            var res = msg.res;
+            if(msg.code == 200){
+                for(var i = 0 ; i < res.name.length; i++){
+                    xx.push(res.name[i]);
+                }
+                for(var i = 0 ; i < res.hong.length; i++){
+                    yy.push(res.hong[i]);
+                }
+                myChart1.setOption({
+			        xAxis: {
+                        data: xx
+                    },
+                    series: yy
+			    });
+            }
+        }
+    });
+}
+
+getdata();
+
+
+</script>

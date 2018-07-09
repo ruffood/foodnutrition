@@ -1,0 +1,107 @@
+<include file="public:head" />
+
+    <div class="container">
+      <h3>膳食宝塔实例 <small><a href="{:U('tools/index')}">返回</a></small></h3>
+      <p></p>
+<br><br><br>
+      <div class="row">
+      	<div class="col-xs-12 col-md-3">
+        <h4>本餐食物清单</h4>
+            <volist name="flist" id="vo">
+                <li>{$vo['name']} x {$vo['liang']}克</li>
+            </volist>
+
+        </div>
+      	<div class="col-xs-12 col-md-9">
+
+            <div class="col-xs-12">
+          		<div id="main" style="width: 100%;height:400px;"></div>
+            </div>
+
+            <div class="col-xs-12">
+                <div id="main1" style="width: 100%;height:400px;"></div>
+            </div>
+
+            <div class="col-xs-12">
+                <div id="main2" style="width: 100%;height:400px;"></div>
+            </div>
+
+        </div>
+
+      </div>
+
+    </div> <!-- /container -->
+
+
+<include file="public:foot" />
+<script type="text/javascript">
+var myChart = echarts.init(document.getElementById('main'));
+myChart.setOption({
+    title: {
+        text: '宏量营养素总量'
+    },
+    tooltip: {},
+    xAxis: {
+        type: 'category',
+        data: ['蛋白质','脂肪','碳水']
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [{
+        data: [{$total['danbai']},{$total['zhifang']},{$total['tanshui']}],
+        type: 'line'
+    }]
+});
+
+var myChart1 = echarts.init(document.getElementById('main1'));
+myChart1.setOption({
+    title: {
+        text: '微量营养素总量'
+    },
+    tooltip: {},
+    yAxis: {
+        type: 'value'
+    },
+    series: [{
+        data: [{$wei_data}],
+        type: 'line'
+    }],
+    xAxis: {
+        type: 'category',
+        data: [{$wei_str}]
+    }
+});
+
+var myChart2 = echarts.init(document.getElementById('main2'));
+myChart2.setOption({
+    title : {
+        text: '',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'left'
+    },
+    series : [
+        {
+            name: '供能比',
+            type: 'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            },
+            data:{$hong_gnb}
+        }
+    ]
+});
+</script>
