@@ -3,12 +3,18 @@
 #### 项目介绍
 基于已知的1284种食物进行营养数据分析
 
+感谢 ThinkPHP、Bootstrap、ECharts、PHPEXcel；
 
 #### 使用说明
 
 1. 基于bootstrap table搭建数据列表页面
 2. 查看各食物营养成分梯度分布
 3. 小工具频道陆续开发系列数据管理功能
+
+#### 环境要求
+1. PHP 5.3及以上
+2. MySQL
+3. Nginx / Apache
 
 
 #### 安装说明
