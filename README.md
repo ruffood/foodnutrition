@@ -3,7 +3,7 @@
 #### 项目介绍
 基于已知的1284种食物进行营养数据分析
 
-感谢 ThinkPHP、Bootstrap、ECharts、PHPEXcel；
+感谢 ThinkPHP、Bootstrap、ECharts、PHPExcel；
 
 #### 使用说明
 
